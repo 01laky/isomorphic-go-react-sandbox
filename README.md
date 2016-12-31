@@ -31,54 +31,54 @@ eslint and golint rules for Makefile
 ## Project structure
 
 server
-├── config <-- Base config maker package
-├── controller <-- prebuild controller package
-│   └── user.go
-├── logger <-- prebuild logger package
-│   └── requestErrorLogger.go
-├── model <-- prebuild model package
-│   │── config.json
-│   │── connection.go
-│   └── user.go
-├── api.go
-├── app.go
-├── bindata.go <-- this file is gitignored, it will appear at compile time
-├── conf.go
-├── data
-│   └── templates
-│       └── react.html
-├── main.go <-- main function declared here
-├── react.go
-└── utils.go
+├── config <-- Base config maker package<br />
+├── controller <-- prebuild controller package<br />
+│   └── user.go<br />
+├── logger <-- prebuild logger package<br />
+│   └── requestErrorLogger.go<br />
+├── model <-- prebuild model package<br />
+│   │── config.json<br />
+│   │── connection.go<br />
+│   └── user.go<br />
+├── api.go<br />
+├── app.go<br />
+├── bindata.go <-- this file is gitignored, it will appear at compile time<br />
+├── conf.go<br />
+├── data<br />
+│   └── templates<br />
+│       └── react.html<br />
+├── main.go <-- main function declared here<br />
+├── react.go<br />
+└── utils.go<br />
 
 client
-├── actions.js
-├── components
-│   ├── app
-│   │   ├── favicon.ico
-│   │   ├── index.js
-│   │   └── styles.css
-│   ├── homepage
-│   │   ├── index.js
-│   │   └── styles.css
-│   ├── not-found
-│   │   ├── index.js
-│   │   └── styles.css
-│   └── usage
-│       ├── index.js
-│       └── styles.css
-├── css
-│   ├── funcs.js
-│   ├── global.css
-│   ├── index.js
-│   └── vars.js
-├── index.js <-- main function declared here
-├── reducers.js
-├── router
-│   ├── index.js
-│   ├── routes.js
-│   └── toString.js
-└── store.js
+├── actions.js<br />
+├── components<br />
+│   ├── app<br />
+│   │   ├── favicon.ico<br />
+│   │   ├── index.js<br />
+│   │   └── styles.css<br />
+│   ├── homepage<br />
+│   │   ├── index.js<br />
+│   │   └── styles.css<br />
+│   ├── not-found<br />
+│   │   ├── index.js<br />
+│   │   └── styles.css<br />
+│   └── usage<br />
+│       ├── index.js<br />
+│       └── styles.css<br />
+├── css<br />
+│   ├── funcs.js<br />
+│   ├── global.css<br />
+│   ├── index.js<br />
+│   └── vars.js<br />
+├── index.js <-- main function declared here<br />
+├── reducers.js<br />
+├── router<br />
+│   ├── index.js<br />
+│   ├── routes.js<br />
+│   └── toString.js<br />
+└── store.js<br />
 The client app will be compiled into `server/data/static/build/`.  Then it will be embedded into go package via _go-bindata_. After that the package will be compiled into binary.
 
 ## Install
