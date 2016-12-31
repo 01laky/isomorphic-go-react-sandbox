@@ -30,7 +30,7 @@ eslint and golint rules for Makefile
 
 ## Project structure
 
-server
+server<br />
 ├── config <-- Base config maker package<br />
 ├── controller <-- prebuild controller package<br />
 │   └── user.go<br />
@@ -51,7 +51,7 @@ server
 ├── react.go<br />
 └── utils.go<br />
 
-client
+client<br />
 ├── actions.js<br />
 ├── components<br />
 │   ├── app<br />
