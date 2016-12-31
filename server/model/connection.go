@@ -9,25 +9,22 @@ import (
 )
 
 type Configuration struct {
-    databaseType    string `json:"databaseType"`
-    userName   string `json:"userName"`
-    password   string `json:"password"`
-    databaseName   string `json:"databaseName"`
-    sslmode   string `json:"sslmode"`
+    DatabaseType    string `json:"databaseType"`
+    UserName   string `json:"userName"`
+    Password   string `json:"password"`
+    DatabaseName   string `json:"databaseName"`
+    Sslmode   string `json:"sslmode"`
 }
 
-func getConfiguration() (Configuration, error)  {
-  fmt.Println("OB BEGIN CONF")
-  raw, err := ioutil.ReadFile("./model/conf.json")
-  var configuration Configuration
-  fmt.Println("configuration => 1 ", raw)
-  fmt.Println("configuration => 2 ", configuration)
-  fmt.Println("configuration => 3 ", err)
+func getConfiguration() (*Configuration, error)  {
+  dir, _ := os.Getwd()
+  fmt.Println(dir)
+  raw, err := ioutil.ReadFile(dir + "/server/model/conf.json")
+  configuration := new(Configuration)
   if err != nil {
       return configuration, err
   }
   json.Unmarshal(raw, &configuration)
-  fmt.Println("configuration => 4 ", configuration)
   return configuration, nil
 }
 
@@ -41,13 +38,11 @@ func BuildConnectionConfig() (string, string, error, string) {
   }
   fmt.Println("configuration => ", configuration)
   configContainer := []string{
-    "user=", configuration.userName,
-    " password=", configuration.password,
-    " dbname=", configuration.databaseName,
-    " sslmode=", configuration.sslmode,
+    "user=", configuration.UserName,
+    " password=", configuration.Password,
+    " dbname=", configuration.DatabaseName,
+    " sslmode=", configuration.Sslmode,
   }
-  fmt.Println("BASE CONFIG CONTAINER => ", configContainer)
   configString := strings.Join(configContainer, "")
-  fmt.Println("BUILDED CONFIG STRING => ", configString)
   return "postgres", configString, nil, ""
 }
