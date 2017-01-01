@@ -38,14 +38,15 @@ func userRoutes(group *echo.Group) {
   })
 }
 
+// TODO: Delate with real get request example
 func First(c *echo.Context) error {
   hd, err := hood.Open("postgres", "user=laky password=passpass dbname=demo sslmode=disable")
   if err != nil {
         panic(err)
   }
   var person *User = &User{
-    Name: "pavla",
-    Email: "pavla@smidova.com",
+    Name: "aaaa",
+    Email: "eeee@rrrr.com",
     CreatedAt: time.Now(),
     UpdatedAt: time.Now(),
   }
