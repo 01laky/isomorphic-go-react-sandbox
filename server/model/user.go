@@ -4,6 +4,7 @@ import (
   "github.com/eaigner/hood"
   "time"
   "fmt"
+  "goOne/server/config"
 )
 
 type User struct {
@@ -19,7 +20,7 @@ func connectDatabase() {
 }
 
 func CreateUser(user *User) (*User, error, string) {
-  dbName, connectionConfig, err, errorType := BuildConnectionConfig()
+  dbName, connectionConfig, err, errorType := configuration.BuildDbConnection()
   if err != nil {
         return nil, err, errorType
   }
@@ -42,7 +43,7 @@ func CreateUser(user *User) (*User, error, string) {
 }
 // (*User, error, string)
 func GetUserById(id string) {
-  dbName, connectionConfig, err, errorType := BuildConnectionConfig()
+  dbName, connectionConfig, err, errorType := configuration.BuildDbConnection()
   if err != nil {
       fmt.Println("err???? => ", err)
       fmt.Println("errorType???? => ", errorType)

@@ -1,0 +1,9 @@
+{
+    "DbConnect": {
+        "databaseType": "postgres",
+        "userName": "laky",
+        "password": "passpass",
+        "databaseName": "demo",
+        "sslmode": "disable"
+    }
+}
