@@ -27,6 +27,7 @@ eslint and golint rules for Makefile<br />
 [golang](https://golang.org/)<br />
 [node.js](https://nodejs.org/) with [npm](https://www.npmjs.com/), only to build the application bundle at compile time<br />
 [GNU make](https://www.gnu.org/software/make/)<br />
+[GCC](https://gcc.gnu.org/)<br />
 
 ## Project structure
 
