@@ -1,5 +1,5 @@
 {
-    "DbConnect": {
+    "dbConnect": {
         "databaseType": "postgres",
         "userName": "laky",
         "password": "passpass",
