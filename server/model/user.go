@@ -54,6 +54,8 @@ func GetUserById(id string) {
       fmt.Println("err one???? => ", err)
         // return nil, err, "database-connection-error"
   }
-  user := hd.Select("user")
+  var userPrototype User
+  user := hd.Select(userPrototype).Where("id", "=", 19)
   fmt.Println("SELECTED USER???? => ", user)
+
 }

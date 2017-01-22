@@ -35,12 +35,12 @@ func BuildDbConnection() (string, string, error, string) {
     os.Exit(1)
     return "", "", err, "connection-config-decode-error"
   }
-
+  dbConfiguration := globalConfiguration.DbConnect
   configContainer := []string{
-    "user=", globalConfiguration.DbConnect.UserName,
-    " password=", globalConfiguration.DbConnect.Password,
-    " dbname=", globalConfiguration.DbConnect.DatabaseName,
-    " sslmode=", globalConfiguration.DbConnect.Sslmode,
+    "user=", dbConfiguration.UserName,
+    " password=", dbConfiguration.Password,
+    " dbname=", dbConfiguration.DatabaseName,
+    " sslmode=", dbConfiguration.Sslmode,
   }
   configString := strings.Join(configContainer, "")
   return "postgres", configString, nil, ""
