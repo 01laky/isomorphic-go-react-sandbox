@@ -1,0 +1,24 @@
+.table-field {
+  text-align: center;
+}
+
+.table-content {
+  border: 1px solid black;
+}
+
+.header {
+  text-align: center;
+  color: black;
+  font-size: 15px;
+  font-style: oblique;
+}
+
+.header-bar {
+  background-color: #e6f2ff;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.table-row:hover {
+  background-color: #e6f2ff;
+}

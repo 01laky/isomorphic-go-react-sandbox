@@ -2,33 +2,49 @@ package controller
 
 import (
 	"gopkg.in/labstack/echo.v1"
-  "encoding/json"
-  "goOne/server/logger"
   "goOne/server/model"
-  "fmt"
 )
 
 func CreateUser(context *echo.Context) {
   user := new(model.User)
-  if err := context.Bind(user); err != nil {
-        logger.LogError(err, "request-error")
-        context.JSON(500, "request-error")
-  }
-  createdUser, err, errorType := model.CreateUser(user)
+	err := context.Bind(user)
   if err != nil {
-        logger.LogError(err, errorType)
-        context.JSON(500, errorType)
+        context.JSON(500, err)
   }
-  jsonUser, err := json.Marshal(createdUser)
+  createdUser, err := model.CreateUser(user)
   if err != nil {
-        logger.LogError(err, "parse-error")
-        context.JSON(500, "parse-error")
+        context.JSON(500, err)
   }
-  context.JSON(200, string(jsonUser))
+  context.JSON(200, createdUser)
 }
 
 func GetUser(context *echo.Context) {
   id := context.Param("id")
-  fmt.Println("CONTROLLER ID => ", id)
-  model.GetUserById(id)
+	requestedUser, err := model.GetUserById(id)
+  if err != nil {
+        context.JSON(500, err)
+  }
+  context.JSON(200, requestedUser)
+}
+
+func GetAllUsers(context *echo.Context) {
+	requestedUsers, err := model.GetAllUsers()
+  if err != nil {
+        context.JSON(500, err)
+  }
+  context.JSON(200, requestedUsers)
+}
+
+func UpdateUser(context *echo.Context) {
+	id := context.Param("id")
+	user := new(model.User)
+	err := context.Bind(user)
+	if err != nil {
+				context.JSON(500, err)
+	}
+	updatedUser, err := model.UpdateUser(user, id)
+	if err != nil {
+        context.JSON(500, err)
+  }
+  context.JSON(200, updatedUser)
 }

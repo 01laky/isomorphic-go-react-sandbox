@@ -1,6 +1,11 @@
 import React from 'react';
 import { Route, IndexRoute, Redirect } from 'react-router';
 import App from '#app/components/app';
+import UserManagement from '#app/components/user/UserManagement';
+
+import Registration from '#app/features/Auth/SandContent/Registration';
+
+import UserPreview from '#app/components/user/UserPreview';
 import Homepage from '#app/components/homepage';
 import Usage from '#app/components/usage';
 import NotFound from '#app/components/not-found';
@@ -27,9 +32,9 @@ export default ({store, first}) => {
 
   return <Route path="/" component={App}>
     <IndexRoute component={Homepage} onEnter={w(Homepage.onEnter)}/>
-    <Route path="/usage" component={Usage} onEnter={w(Usage.onEnter)}/>
-    {/* Server redirect in action */}
-    <Redirect from="/docs" to="/usage" />
+    <Route path="/registration" component={Registration} />
+    <Route path="/user-management" component={UserManagement} onEnter={w(UserManagement.onEnter)}/>
+    <Route path="/user-preview" component={UserPreview} onEnter={w(UserPreview.onEnter)}/>
     <Route path="*" component={NotFound} onEnter={w(NotFound.onEnter)}/>
   </Route>;
 };

@@ -3,9 +3,10 @@ package configuration
 import (
   "encoding/json"
   "os"
-  // "fmt"
-  "strings"
+  "fmt"
   "io/ioutil"
+  "github.com/jinzhu/gorm"
+  _ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 type GlobalConfig struct {
@@ -18,9 +19,11 @@ type GlobalConfig struct {
   }
 }
 
+var (DB *gorm.DB)
+
 func getGlobalConfiguration() (*GlobalConfig, error)  {
   dir, _ := os.Getwd()
-  raw, err := ioutil.ReadFile(dir + "/server/config/conf.json")
+  raw, err := ioutil.ReadFile(dir + "/server/config/connectionConfig.json")
   globalConfiguration := new(GlobalConfig)
   if err != nil {
       return globalConfiguration, err
@@ -29,19 +32,14 @@ func getGlobalConfiguration() (*GlobalConfig, error)  {
   return globalConfiguration, nil
 }
 
-func BuildDbConnection() (string, string, error, string) {
+func CreateConnection() (*gorm.DB, error) {
   globalConfiguration, err := getGlobalConfiguration()
+  config := globalConfiguration.DbConnect
+  conectionInfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=%s",
+    config.UserName, config.Password, config.DatabaseName, config.Sslmode)
+  DB, err = gorm.Open(config.DatabaseType, conectionInfo)
   if err != nil {
-    os.Exit(1)
-    return "", "", err, "connection-config-decode-error"
+    return nil, err
   }
-
-  configContainer := []string{
-    "user=", globalConfiguration.DbConnect.UserName,
-    " password=", globalConfiguration.DbConnect.Password,
-    " dbname=", globalConfiguration.DbConnect.DatabaseName,
-    " sslmode=", globalConfiguration.DbConnect.Sslmode,
-  }
-  configString := strings.Join(configContainer, "")
-  return "postgres", configString, nil, ""
+  return DB, nil
 }

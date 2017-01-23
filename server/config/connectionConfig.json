@@ -2,8 +2,8 @@
     "dbConnect": {
         "databaseType": "postgres",
         "userName": "laky",
-        "password": "passpass",
-        "databaseName": "demo",
+        "password": "xxxxxx",
+        "databaseName": "sandbox",
         "sslmode": "disable"
     }
 }
