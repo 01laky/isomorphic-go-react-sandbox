@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 import { SET_CONFIG } from './actions';
+import userManagement from './components/user/UserManagement/reducer';
+import { reducer as formReducer } from 'redux-form'
 
 function config(state = {}, action) {
   switch (action.type) {
@@ -10,4 +12,4 @@ function config(state = {}, action) {
   }
 }
 
-export default combineReducers({config});
+export default combineReducers({config, userManagement, form: formReducer});

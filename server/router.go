@@ -18,6 +18,10 @@ func userRoutes(group *echo.Group) {
     controller.CreateUser(context)
     return nil
   })
+  group.Get("/user", func(context *echo.Context) error {
+    controller.GetAllUsers(context)
+    return nil
+  })
   group.Get("/user/:id", func(context *echo.Context) error {
     controller.GetUser(context)
     return nil

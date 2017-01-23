@@ -40,6 +40,20 @@ func GetUserById(id string) (string, error) {
   return string(jsonUser), nil
 }
 
+func GetAllUsers() (string, error) {
+  db, err := configuration.CreateConnection()
+  if err != nil {
+    return "", err
+  }
+  var users []User
+  db.Select([]string{"*"}).Find(&users)
+  jsonUsers, err := json.Marshal(users)
+  if err != nil {
+    return "", err
+  }
+  return string(jsonUsers), nil
+}
+
 func UpdateUser(user *User, id string) (string, error) {
   db, err := configuration.CreateConnection()
   if err != nil {
