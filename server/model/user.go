@@ -1,61 +1,58 @@
 package model
 
 import (
-  "github.com/eaigner/hood"
-  "time"
-  "fmt"
   "goOne/server/config"
+  "github.com/jinzhu/gorm"
+  _ "github.com/jinzhu/gorm/dialects/postgres"
+  "encoding/json"
 )
 
 type User struct {
-        Id    hood.Id
+        gorm.Model
         Name  string
         Email string
-        CreatedAt time.Time
-        UpdatedAt time.Time
 }
 
-func connectDatabase() {
-
+func CreateUser(user *User) (string, error) {
+  db, err := configuration.CreateConnection()
+  if err != nil {
+    return "", err
+  }
+  db.Create(&user)
+  jsonUser, err := json.Marshal(user)
+  if err != nil {
+    return "", err
+  }
+  return string(jsonUser), nil
 }
 
-func CreateUser(user *User) (*User, error, string) {
-  dbName, connectionConfig, err, errorType := configuration.BuildDbConnection()
+func GetUserById(id string) (string, error) {
+  db, err := configuration.CreateConnection()
   if err != nil {
-        return nil, err, errorType
+    return "", err
   }
-  hd, err := hood.Open(dbName, connectionConfig)
+  var user User
+  db.First(&user, id)
+  jsonUser, err := json.Marshal(user)
   if err != nil {
-        return nil, err, "database-connection-error"
+    return "", err
   }
-  id, err := hd.Save(user)
-  if err != nil {
-        return nil, err, "save-user-error"
-  }
-  var nextUser *User = &User{
-    Id: id,
-    Name: user.Name,
-    Email: user.Email,
-    CreatedAt: user.CreatedAt,
-    UpdatedAt: user.UpdatedAt,
-  }
-  return nextUser, nil, ""
+  return string(jsonUser), nil
 }
-// (*User, error, string)
-func GetUserById(id string) {
-  dbName, connectionConfig, err, errorType := configuration.BuildDbConnection()
-  if err != nil {
-      fmt.Println("err???? => ", err)
-      fmt.Println("errorType???? => ", errorType)
-        // return nil, err, errorType
-  }
-  hd, err := hood.Open(dbName, connectionConfig)
-  if err != nil {
-      fmt.Println("err one???? => ", err)
-        // return nil, err, "database-connection-error"
-  }
-  var userPrototype User
-  user := hd.Select(userPrototype).Where("id", "=", 19)
-  fmt.Println("SELECTED USER???? => ", user)
 
+func UpdateUser(user *User, id string) (string, error) {
+  db, err := configuration.CreateConnection()
+  if err != nil {
+    return "", err
+  }
+  var updatedUser User
+  db.First(&updatedUser, id)
+  updatedUser.Name = user.Name
+  updatedUser.Email = user.Email
+  db.Save(&updatedUser)
+  jsonUser, err := json.Marshal(updatedUser)
+  if err != nil {
+    return "", err
+  }
+  return string(jsonUser), nil
 }
