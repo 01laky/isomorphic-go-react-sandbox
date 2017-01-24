@@ -1,4 +1,4 @@
-const names = ['Jan', 'Petr', 'Milan', 'Honza', 'Albert', 'Matej'];
+const names = ['Jan', 'Petr', 'Milan', 'Honza', 'Albert', 'Matej', 'Laco', 'Ondrej', 'Tomas'];
 
 export function getRandomString() {
   let randomString = names[Math.floor(Math.random() * names.length - 1)];
