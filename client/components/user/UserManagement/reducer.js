@@ -1,5 +1,5 @@
 import {isEmpty} from 'lodash';
-import {LOAD_USERS, RECEIVE_USERS, RECEIVE_USER, SET_EDITABLE} from './actions';
+import {LOAD_USERS, RECEIVE_USERS, RECEIVE_USER, SET_EDITABLE, RECEIVE_UPDATED_USER} from './actions';
 
 const initialState = {
   loading: false,
@@ -22,9 +22,18 @@ export default function reducer(state = {}, action) {
 
     case RECEIVE_USER:
       const {payload: newUser} = action;
-      const {users} = state;
-      users.push(newUser);
-      return {...state, loading: false, loaded: true, users};
+      state.users.push(newUser);
+      return {...state, loading: false, loaded: true, users: state.users};
+
+    case RECEIVE_UPDATED_USER:
+      const {payload: updatedUser} = action;
+      const updatedUsers = state.users.map(user => {
+        if (user.ID === updatedUser.ID) {
+          return updatedUser;
+        }
+        return user;
+      });
+      return {...state, users: updatedUsers};
 
     case SET_EDITABLE:
       const {payload: selectedUserId} = action;

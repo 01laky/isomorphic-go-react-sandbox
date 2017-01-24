@@ -6,6 +6,7 @@ export const RECEIVE_USERS = 'RECEIVE_USERS';
 export const POST_USER = 'POST_USER';
 export const RECEIVE_USER = 'RECEIVE_USER';
 export const SET_EDITABLE = 'SET_EDITABLE';
+export const RECEIVE_UPDATED_USER = 'RECEIVE_UPDATED_USER';
 
 export function loadUsers() {
   return {type: LOAD_USERS};
@@ -18,6 +19,12 @@ export function receiveUsers(nextUsers) {
 export function receiveUser(nextUser) {
   return {type: RECEIVE_USER, payload: nextUser};
 }
+
+export function receiveUpdatedUser(updatedUser) {
+  return {type: RECEIVE_UPDATED_USER, payload: updatedUser};
+}
+
+
 
 export function setEditable(userId) {
   return {type: SET_EDITABLE, payload: userId};

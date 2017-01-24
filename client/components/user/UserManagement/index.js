@@ -54,40 +54,36 @@ class UserManagement extends Component {
       }),
     })
     .then(response => response.json())
-    .then(nextUser => this.props.receiveUser(JSON.parse(nextUser)));
+    .then(createdUser => {
+      const parsedUser = JSON.parse(createdUser);
+      this.props.receiveUser(parsedUser)
+      this.props.reinitializeForm(parsedUser.ID, false, this.props.users)
+    });
   }
 
-  handleOnFirstPost = () => event => {
-    event && event.preventDefault();
-    fetch('/api/user', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+  handleUpdateUser = (formData, userId) => {
+    console.log('HANDLE ON UPDATE USER => ', formData, userId);
+    fetch(`/api/user/${userId}`, {
+      method: 'PATCH',
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        name: `${getRandomString()} ${getRandomString()}`,
-        email: `${getRandomString()}@${getRandomString()}.com`,
+        name: formData.name,
+        email: formData.email,
       }),
     })
     .then(response => response.json())
-    .then(nextUser => this.props.receiveUser(JSON.parse(nextUser)));
+    .then(updatedUser => {
+      this.props.receiveUpdatedUser(JSON.parse(updatedUser))
+      this.props.reinitializeForm(userId, false, this.props.users)
+    });
   }
 
-  handleOnFirstPath = () => event => {
-    event && event.preventDefault();
-    fetch('/api/user/22', {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: 'ladislav-edited',
-        email: 'ladislav@email.com-edited',
-      }),
-    }).then((r) => {
-      console.log('PATH BASE ER => ', r)
-      return r.json();
-    }).then((other) => console.log('AAAACH OTHER PATH ER => ', other));
+  handleOnSubmit = formData => {
+    console.log('HANDLE ON SUBMIT => ', formData);
+    console.log('HANDLE ON SELECTED  => ', this.props.selected);
+    return (this.props.selected)
+        ? this.handleUpdateUser(formData, this.props.selected)
+        : this.handleCreateUser(formData);
   }
 
   render() {
@@ -99,9 +95,7 @@ class UserManagement extends Component {
         selected,
         reinitializeForm,
       },
-      handleOnFirstPost,
-      handleOnFirstPath,
-      handleCreateUser,
+      handleOnSubmit,
     } = this;
     console.log('RENDER PROPS => ', this.props);
     return <div>
@@ -121,7 +115,7 @@ class UserManagement extends Component {
           <div className="col-md-offset-1 col-md-5">
             <h1>{(selected) && 'Editation' || 'Create'}</h1>
             <UserForm
-              onSubmit={handleCreateUser}
+              onSubmit={handleOnSubmit}
               reinitializeForm={reinitializeForm}
               setEditable={setEditable}
             />
