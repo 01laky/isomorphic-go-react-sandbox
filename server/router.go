@@ -5,6 +5,7 @@ import (
 	"gopkg.in/labstack/echo.v1"
 	// "encoding/json"
   // "time"
+  "goOne/server/auth"
   "goOne/server/controller"
   // "fmt"
 )
@@ -16,6 +17,10 @@ func BindRoutes(group *echo.Group) {
 func userRoutes(group *echo.Group) {
   group.Post("/user", func(context *echo.Context) error {
     controller.CreateUser(context)
+    return nil
+  })
+  group.Post("/register", func(context *echo.Context) error {
+    auth.ReqisterUser(context)
     return nil
   })
   group.Get("/user", func(context *echo.Context) error {

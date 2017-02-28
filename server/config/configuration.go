@@ -4,7 +4,6 @@ import (
   "encoding/json"
   "os"
   "fmt"
-  // "strings"
   "io/ioutil"
   "github.com/jinzhu/gorm"
   _ "github.com/jinzhu/gorm/dialects/postgres"
@@ -20,13 +19,11 @@ type GlobalConfig struct {
   }
 }
 
-var (
-    DB *gorm.DB
-)
+var (DB *gorm.DB)
 
 func getGlobalConfiguration() (*GlobalConfig, error)  {
   dir, _ := os.Getwd()
-  raw, err := ioutil.ReadFile(dir + "/server/config/conf.json")
+  raw, err := ioutil.ReadFile(dir + "/server/config/connectionConfig.json")
   globalConfiguration := new(GlobalConfig)
   if err != nil {
       return globalConfiguration, err

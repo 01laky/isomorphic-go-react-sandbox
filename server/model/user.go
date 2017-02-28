@@ -2,13 +2,17 @@ package model
 
 import (
   "goOne/server/config"
-  "github.com/jinzhu/gorm"
+  // "github.com/jinzhu/gorm"
   _ "github.com/jinzhu/gorm/dialects/postgres"
   "encoding/json"
+  "time"
 )
 
 type User struct {
-        gorm.Model
+        ID        uint `gorm:"primary_key"`
+        CreatedAt time.Time
+        UpdatedAt time.Time
+        DeletedAt *time.Time
         Name  string
         Email string
 }
