@@ -1,7 +1,7 @@
 package main
 
 import (
-  // "fmt"
+  "fmt"
 	"gopkg.in/labstack/echo.v1"
 	// "encoding/json"
   // "time"
@@ -15,6 +15,7 @@ func BindRoutes(group *echo.Group) {
 }
 
 func userRoutes(group *echo.Group) {
+  fmt.Println("ROUTER HANDLE ???")
   group.Post("/user", func(context *echo.Context) error {
     controller.CreateUser(context)
     return nil
