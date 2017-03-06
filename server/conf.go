@@ -12,7 +12,7 @@ var (
 // yaml string and then parse it into
 // map.
 // How it works see here:
-//     https://github.com/olebedev/config
+// https://github.com/olebedev/config
 var confString = `
 debug: false
 commit: 0

@@ -6,6 +6,7 @@ import toString from './toString';
 import { Promise } from 'when';
 import createRoutes from './routes';
 import { createStore, setAsCurrentStore } from '../store';
+// import Promise from 'bluebird';
 
 
 export function run() {
@@ -20,7 +21,7 @@ export function run() {
 
   render(
     <Provider store={store} >
-      <Router history={browserHistory}>{createRoutes({store, first: { time: true }})}</Router>
+      <Router history={browserHistory}>{createRoutes({store})}</Router>
     </Provider>,
     document.getElementById('app')
   );

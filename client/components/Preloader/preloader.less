@@ -1,0 +1,30 @@
+.Preloader {
+  background-image: url("../css/preloader.gif");
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 128px;
+  left: 50%;
+  transform: translateX(-50%);
+  position: relative;
+  top: 50%;
+  width: 128px;
+  z-index: 101;
+}
+
+.Preloader-global {
+  background-color: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 0 10px 5px rgba(0,0,0,0.1);
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  border-radius: 100%;
+  position: fixed;
+  z-index: 45;
+  transform: translate(-50%, -35%);
+  display: block;
+
+  .Preloader {
+    transform: translate(-50%, -50%);
+  }
+}

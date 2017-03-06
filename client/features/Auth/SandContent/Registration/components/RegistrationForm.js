@@ -4,7 +4,7 @@ import { Field, reduxForm } from "redux-form";
 class RegistrationForm extends Component {
   render() {
     const {
-      props: { handleSubmit },
+      props: { handleSubmit }
     } = this;
     return (
       <form className="form-group row" onSubmit={handleSubmit}>
@@ -29,7 +29,9 @@ class RegistrationForm extends Component {
         </div>
         <br /><br /><br />
         <div>
-          <label className="col-2 col-form-label" htmlFor="email">Password</label>
+          <label className="col-2 col-form-label" htmlFor="email">
+            Password
+          </label>
           <Field
             className="form-control"
             name="password"

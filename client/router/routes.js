@@ -1,9 +1,13 @@
 import React from 'react';
 import { Route, IndexRoute, Redirect } from 'react-router';
 import App from '#app/components/app';
+
+import makeLoadAction from './makeLoadAction';
+
 import UserManagement from '#app/components/user/UserManagement';
 
 import Registration from '#app/features/Auth/SandContent/Registration';
+import UserList from '#app/features/User/SandCms';
 
 import UserPreview from '#app/components/user/UserPreview';
 import Homepage from '#app/components/homepage';
@@ -34,6 +38,7 @@ export default ({store, first}) => {
     <IndexRoute component={Homepage} onEnter={w(Homepage.onEnter)}/>
     <Route path="/registration" component={Registration} />
     <Route path="/user-management" component={UserManagement} onEnter={w(UserManagement.onEnter)}/>
+    <Route path="/user/list" component={UserList} onEnter={makeLoadAction(store.dispatch, 'USER.LIST/LOAD')}/>
     <Route path="/user-preview" component={UserPreview} onEnter={w(UserPreview.onEnter)}/>
     <Route path="*" component={NotFound} onEnter={w(NotFound.onEnter)}/>
   </Route>;
